@@ -1,0 +1,23 @@
+version: '3'
+services:
+  tutorial-mysql:
+    image: mysql:5.6
+    container_name: tutorial-mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=mytutorials
+    ports:
+      - 3309:3306
+    restart: always
+  tutorial-api:
+      image: jpa-one-to-many
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://tutorial-mysql:3306/mytutorials
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=
+      ports:
+          - "9001:8081"
+      depends_on:                           #define dependencies of this app
+        - tutorial-mysql  
+          
+          
