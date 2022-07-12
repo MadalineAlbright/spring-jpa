@@ -7,8 +7,8 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/test5
-    username: root
+    url: jdbc:mysql://localhost:3306/mytutorials
+    username: root  
     password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -18,3 +18,13 @@ spring:
       max-lifetime: 30000
       connection-timeout: 60000
       pool-name: testHikariPool
+      
+      
+      server:
+  ssl:
+    key-store-password: password
+    key-store-type: pkcs12
+    key-store: classpath:tutorial.jks
+    key-password: password
+    key-alias: tutorial
+  port: '8443'

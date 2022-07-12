@@ -60,9 +60,5 @@ public class CommentController {
 		return commentsService.deleteAllCommentsOfTutorial(tutorialId);
 	}
 
-//	@SuppressWarnings("unchecked")
-//	@GetMapping("/queryjoin")
-//	public List<?> findJoininfo() {
-//		return commentRepository.findJoin();
-//	}
+
 }
