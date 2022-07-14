@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jpa-one-to-many
+spec:
+  selector:
+    matchLabels:
+      app: jpa-one-to-many
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jpa-one-to-many
+    spec:
+      containers:
+        - name: jpa-one-to-many
+          image: maddie22/jpa-one-to-many:v2
+          ports:
+            - containerPort: 8081
+          env:   # Setting Environmental Variables
+            - name: SPRING_DATASOURCE_URL   # Setting Database host address
+              value: jdbc:mysql://mysql:3306/mytutorials
+            - name: SPRING_DATASOURCE_USERNAME  # Setting Database username
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD # Setting Database password
+              value: root
+# This seperator --- below is MANDATORY!!!
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tutorial-service
+spec:
+  type: NodePort
+  selector:
+    app: jpa-one-to-many
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 32700

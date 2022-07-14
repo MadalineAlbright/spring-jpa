@@ -19,9 +19,8 @@ spring:
       connection-timeout: 60000
       pool-name: testHikariPool
       
-      
-      server:
-  ssl:
+  server:
+   ssl:
     key-store-password: password
     key-store-type: pkcs12
     key-store: classpath:tutorial.jks

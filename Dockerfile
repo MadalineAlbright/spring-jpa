@@ -1,4 +1,4 @@
-FROM openjdk:8-slim
+FROM FROM registry.access.redhat.com/ubi8/openjdk-8:latest
 
 LABEL maintainer = "maddie@gmail.com"
 

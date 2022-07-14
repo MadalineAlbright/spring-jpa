@@ -1,0 +1,35 @@
+parameters:
+- name: 'projects'
+  type: object
+  default:
+  - 'kcb-spring-one-to-many'  
+- name: createSecuredRoutes
+  displayName: 'Check Box to Create Secured-Routes'
+  type: boolean
+  default: false
+
+resources:
+  repositories:
+    - repository: azure-build-pipeline
+      type: git
+      name: azure-build-pipeline
+      
+trigger: 
+- none
+    
+pool:
+  name: 'KCB Default Agent Pool - Backup'
+
+variables:
+  image_tag: $(Build.BuildNumber)
+  azureRegistryUrl: 'arokcb.azurecr.io'
+  openshiftProjectName: 'k8s-demo'
+  openshiftProject: 'jpa-one-to-many'
+  
+stages:
+  - template: /stages/dev-pipeline.yml@azure-build-pipeline
+    parameters:
+      openshiftServiceName: 'OpenshiftDev'
+      openShiftProjectName: 'k8s-demo'
+      services: ${{ parameters.projects }}
+      routes: ${{ parameters.createSecuredRoutes }}

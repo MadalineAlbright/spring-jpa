@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: jpa-one-to-many-service
+  namespace: k8s-demo
+spec:
+  path: /
+  to:
+    kind: Service
+    name: tutorial-service
+  port:
+    targetPort: 8081
