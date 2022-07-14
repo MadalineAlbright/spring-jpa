@@ -15,13 +15,6 @@ spec:
       containers:
         - name: jpa-one-to-many
           image: (_azureRegistryUrl)/(_openshiftProjectName)/(_openshiftProject):(_image_tag)
-          resources:
-            requests:
-              cpu: 200m
-              memory: 512Mi
-            limits:
-              cpu: 400m
-              memory: 1Gi
           ports:
             - containerPort: 8081
           env:   # Setting Environmental Variables
