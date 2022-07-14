@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jpa-one-to-many
+spec:
+  selector:
+      matchLabels:
+        app: jpa-one-to-many
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jpa-one-to-many
+    spec:                  
+      containers:
+        - name: jpa-one-to-many
+          image: (_azureRegistryUrl)/(_openshiftProjectName)/(_openshiftProject):(_image_tag)
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 400m
+              memory: 1Gi
+          ports:
+            - containerPort: 8081
+          env:   # Setting Environmental Variables
+            - name: SPRING_DATASOURCE_URL   # Setting Database host address
+              value: jdbc:mysql://mysql:3306/mytutorials
+            - name: SPRING_DATASOURCE_USERNAME  # Setting Database username
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD # Setting Database password
+              value: root                    
+            - name: JAVA_OPTIONS
+              value: -XX:TieredStopAtLevel=1 -noverify -Xms512m -Xmx1024m -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1 -Dlog4j2.formatMsgNoLookups=true -Djava.util.concurrent.ForkJoinPool.common.parallelism=1 -cp
+          imagePullPolicy: Always
+      imagePullSecrets: 
+      - name: arokcb-registry
+ #oc create secret generic <secret_name> --from-file=<path/to/.gitconfig>     
+ #kubectl create secret generic t24-certificate-p12 --from-file=www-kcbgroup-com.p12 --from-literal=password=changeit                      
